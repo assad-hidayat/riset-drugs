@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Drug Search</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        body{
+            font-family:'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            min-height:100vh;
+            color:white;
+            padding:40px 20px;
+        }
+
+        .container{
+            max-width:1000px;
+            margin:auto;
+        }
+
+        .header{
+            text-align:center;
+            margin-bottom:40px;
+        }
+
+        .header h1{
+            font-size:48px;
+            font-weight:700;
+            margin-bottom:10px;
+        }
+
+        .header p{
+            color:#cbd5e1;
+            font-size:18px;
+        }
+
+        .search-box{
+            background:rgba(255,255,255,0.08);
+            backdrop-filter: blur(10px);
+            padding:20px;
+            border-radius:20px;
+            border:1px solid rgba(255,255,255,0.1);
+            margin-bottom:40px;
+        }
+
+        form{
+            display:flex;
+            gap:15px;
+        }
+
+        input{
+            flex:1;
+            padding:16px 20px;
+            border:none;
+            border-radius:14px;
+            background:rgba(255,255,255,0.1);
+            color:white;
+            font-size:16px;
+            outline:none;
+        }
+
+        input::placeholder{
+            color:#cbd5e1;
+        }
+
+        button{
+            background:#3b82f6;
+            border:none;
+            padding:16px 28px;
+            border-radius:14px;
+            color:white;
+            font-size:16px;
+            font-weight:600;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        button:hover{
+            background:#2563eb;
+            transform:translateY(-2px);
+        }
+
+        .results-title{
+            margin-bottom:20px;
+            font-size:24px;
+            font-weight:600;
+        }
+
+        .results-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+            gap:20px;
+        }
+
+        .card{
+            background:rgba(255,255,255,0.08);
+            backdrop-filter: blur(12px);
+            border:1px solid rgba(255,255,255,0.1);
+            border-radius:20px;
+            padding:24px;
+            transition:0.3s;
+        }
+
+        .card:hover{
+            transform:translateY(-5px);
+            border-color:#3b82f6;
+            box-shadow:0 10px 30px rgba(59,130,246,0.2);
+        }
+
+        .drug-name{
+            font-size:22px;
+            font-weight:700;
+            margin-bottom:15px;
+            color:#60a5fa;
+        }
+
+        .info{
+            margin-bottom:12px;
+            line-height:1.6;
+            color:#e2e8f0;
+        }
+
+        .label{
+            font-weight:600;
+            color:white;
+        }
+
+        .price{
+            margin-top:15px;
+            display:inline-block;
+            background:#2563eb;
+            padding:8px 14px;
+            border-radius:10px;
+            font-size:14px;
+            font-weight:600;
+        }
+
+        .empty{
+            text-align:center;
+            color:#94a3b8;
+            margin-top:40px;
+        }
+
+        @media(max-width:768px){
+
+            .header h1{
+                font-size:34px;
+            }
+
+            form{
+                flex-direction:column;
+            }
+
+            button{
+                width:100%;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+
+            <h1>💊 AI Drug Search</h1>
+
+            <p>
+                Semantic Search untuk informasi obat menggunakan AI
+            </p>
+
+        </div>
+
+        <div class="search-box">
+
+            <form method="post">
+
+                <input
+                    type="text"
+                    name="query"
+                    placeholder="Cari obat, indikasi, kandungan..."
+                    required
+                >
+
+                <button type="submit">
+                    Cari
+                </button>
+
+            </form>
+
+        </div>
+
+        {% if results %}
+
+            <div class="results-title">
+
+                Hasil untuk "{{query}}"
+
+            </div>
+
+            <div class="results-grid">
+
+                {% for item in results %}
+
+                <div class="card">
+
+                    <div class="drug-name">
+
+                        {{item.nama_obat}}
+
+                    </div>
+
+                    <div class="info">
+
+                        <span class="label">
+                            Kategori:
+                        </span>
+
+                        {{item.kategori}}
+
+                    </div>
+
+                    <div class="info">
+
+                        <span class="label">
+                            Indikasi:
+                        </span>
+
+                        {{item.indikasi}}
+
+                    </div>
+
+                    <div class="price">
+
+                        {{item.harga}}
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="empty">
+
+                Belum ada pencarian...
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+
+</html>
