@@ -6,14 +6,7 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 from openai import OpenAI
 
-# =========================
-# OPENAI API KEY
-# =========================
 
-client = OpenAI(
-    base_url="https://openrouter.ai/api/v1",
-    api_key="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"
-)
 
 # =========================
 # BASE DIRECTORY
