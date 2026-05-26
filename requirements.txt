@@ -8,6 +8,5 @@ jinja2
 python-multipart
 openpyxl
 streamlit
-torch
 torchvision
 pillow
